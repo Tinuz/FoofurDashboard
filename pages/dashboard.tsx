@@ -15,8 +15,18 @@ export default function DashboardPage() {
   useEffect(() => {
     fetch("/api/logs")
       .then((res) => res.json())
-      .then(setLogs);
+      .then((data) => {
+        console.log("Logs opgehaald van API:", data);
+        setLogs(data);
+      })
+      .catch((err) => {
+        console.error("Fout bij ophalen logs:", err);
+      });
   }, []);
+
+  useEffect(() => {
+    console.log("Logs state na ophalen:", logs);
+  }, [logs]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-12 px-4">
